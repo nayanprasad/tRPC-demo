@@ -1,5 +1,6 @@
 import {publicProcedure, router} from '../trpc';
 import {z} from 'zod';
+import {isAuthenticated} from "../middleware";
 
 export const userRouter = router({
     createUser: publicProcedure
@@ -13,6 +14,7 @@ export const userRouter = router({
             return user;
         }),
     profile: publicProcedure
+        .use(isAuthenticated) // middleware to check if user is authenticated
         .output(z.object({name: z.string(), email: z.string().email()}))
         .query(async (opts) => {
             const currUserId = opts.ctx.userId;
