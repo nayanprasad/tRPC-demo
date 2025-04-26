@@ -15,11 +15,11 @@ const trpc = createTRPCClient<AppRouter>({
 });
 
 const createUser = async () => {
-    const createUserResponse = await trpc.createUser.mutate({name: "Hades", email: "hades@gmail.com"})
+    const createUserResponse = await trpc.user.createUser.mutate({name: "Hades", email: "hades@gmail.com"})
 }
 
 const getProfile = async () => {
-    const profileResponse = await trpc.profile.query();
+    const profileResponse = await trpc.user.profile.query();
     console.log('Profile:', profileResponse);
 }
 
